@@ -1,0 +1,10 @@
+{
+	"name": "astina/solvency-bundle",
+	"type": "symfony-bundle",
+	"autoload": {
+		"psr-0": {
+			"Astina\\Bundle\\SolvencyBundle": ""
+		}
+	},
+	"target-dir": "Astina/Bundle/SolvencyBundle"
+}
