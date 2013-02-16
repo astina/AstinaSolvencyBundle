@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="astina_solvency.provider.class">Astina\Bundle\SolvencyBundle\Provider\DeltaVista\Provider</parameter>
+        <parameter key="astina_solvency.provider.endpoint">http://www.deltavista.com/dspone/ordercheck-if/V001</parameter>
+        <parameter key="astina_solvency.provider.user" />
+        <parameter key="astina_solvency.provider.password" />
+        <parameter key="astina_solvency.provider.correlation_id">CHE</parameter>
+        <parameter key="astina_solvency.provider.location">https://dspone.deltavista.com/dspone/services/OrderCheckService</parameter>
+    </parameters>
+
+    <services>
+        <service id="astina_solvency.provider" class="%astina_solvency.provider.class%">
+            <argument>%astina_solvency.provider.endpoint%</argument>
+            <argument>%astina_solvency.provider.user%</argument>
+            <argument>%astina_solvency.provider.password%</argument>
+            <argument>%astina_solvency.provider.correlation_id%</argument>
+            <argument>%astina_solvency.provider.location%</argument>
+            <argument type="service" id="logger" />
+        </service>
+    </services>
+</container>
