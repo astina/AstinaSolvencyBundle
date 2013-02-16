@@ -27,7 +27,7 @@ class AstinaSolvencyExtension extends Extension
 
         if (isset($config['deltavista'])) {
             $loader->load('provider/deltavista.xml');
-            foreach (array('endpoint', 'user', 'password', 'correlation_id', 'location') as $param) {
+            foreach (array('wsdl_url', 'user', 'password', 'correlation_id', 'endpoint_url') as $param) {
                 if (isset($config['deltavista'][$param])) {
                     $container->setParameter('astina_solvency.provider.' . $param, $config['deltavista'][$param]);
                 }

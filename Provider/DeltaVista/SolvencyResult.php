@@ -6,7 +6,7 @@ use Astina\Bundle\SolvencyBundle\Solvency\SolvencyResult as BaseResult;
 
 class SolvencyResult extends BaseResult
 {
-    function __construct(\stdClass$response)
+    function __construct(\stdClass $response)
     {
         $status = self::STATUS_UNKNOWN;
 

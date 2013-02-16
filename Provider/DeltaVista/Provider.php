@@ -5,59 +5,57 @@ namespace Astina\Bundle\SolvencyBundle\Provider\DeltaVista;
 use Astina\Bundle\SolvencyBundle\Exception\SolvencyException;
 use Astina\Bundle\SolvencyBundle\Provider\AddressInterface;
 
+use Astina\Bundle\SolvencyBundle\Solvency\SolvencyResult as BaseResult;
+use Astina\Bundle\SolvencyBundle\Solvency\SolvencyResult;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
 class Provider
 {
-    private $wsdlUrl = null; // where to get this?
-
-    private $endPointUrl;
+    private $wsdlUrl;
 
     private $user;
 
     private $password;
 
-    private $correlationId;
+    private $endpointUrl;
 
     private $location;
 
     private $logger;
 
-    function __construct($endPointUrl, $user, $password, $correlationId, $location, LoggerInterface $logger)
+    function __construct($wsdlUrl, $user, $password, $correlationId, $endpointUrl,
+                         LoggerInterface $logger)
     {
-        $this->endPointUrl = $endPointUrl;
+        $this->wsdlUrl = $wsdlUrl;
         $this->user = $user;
         $this->password = $password;
         $this->correlationId = $correlationId;
-        $this->location = $location;
+        $this->endpointUrl = $endpointUrl;
         $this->logger = $logger;
     }
 
     /**
      * @param \Astina\Bundle\SolvencyBundle\Provider\AddressInterface $address
-     * @return SolvencyResult
+     * @param array $options
      * @throws \Astina\Bundle\SolvencyBundle\Exception\SolvencyException
+     * @return SolvencyResult
      */
-    public function checkAddress(AddressInterface $address)
+    public function checkAddress(AddressInterface $address, array $options = null)
     {
-        $opts = array(
-            'location' => $this->location,
-            'uri' => $this->endPointUrl,
-        );
-
-        $client = new \SoapClient($this->wsdlUrl, $opts);
-
-        if (empty($this->user) || empty($this->password)) {
-            throw new SolvencyException('DeltaVista SOAP interface not configured');
-        }
+        $client = new \SoapClient($this->wsdlUrl);
 
         $this->logger->info('Checking address solvency', array('address' => (string) $address));
 
         $ctx = $this->createContext();
 
-        $header = new \SoapHeader($this->endPointUrl, 'messageContext', $ctx);
+        $header = new \SoapHeader('http://www.deltavista.com/dspone/ordercheck-if/V001', 'messageContext', $ctx);
 
         $req = $this->createRequest($address);
+
+        $opts = array();
+        if ($this->endpointUrl) {
+            $opts['location'] = $this->endpointUrl;
+        }
 
         try {
             $response = $client->__soapCall('orderCheck', array($req), $opts, array($header));
