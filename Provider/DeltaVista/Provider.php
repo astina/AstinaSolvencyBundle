@@ -4,12 +4,13 @@ namespace Astina\Bundle\SolvencyBundle\Provider\DeltaVista;
 
 use Astina\Bundle\SolvencyBundle\Exception\SolvencyException;
 use Astina\Bundle\SolvencyBundle\Provider\AddressInterface;
-
+use Astina\Bundle\SolvencyBundle\Provider\ProviderInterface;
 use Astina\Bundle\SolvencyBundle\Solvency\SolvencyResult as BaseResult;
 use Astina\Bundle\SolvencyBundle\Solvency\SolvencyResult;
+
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
-class Provider
+class Provider implements ProviderInterface
 {
     private $wsdlUrl;
 

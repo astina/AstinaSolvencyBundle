@@ -5,21 +5,21 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="astina_solvency.provider.class">Astina\Bundle\SolvencyBundle\Provider\DeltaVista\Provider</parameter>
-        <parameter key="astina_solvency.provider.wsdl_url" />
-        <parameter key="astina_solvency.provider.user" />
-        <parameter key="astina_solvency.provider.password" />
-        <parameter key="astina_solvency.provider.correlation_id">CHE</parameter>
-        <parameter key="astina_solvency.provider.endpoint_url">https://dspone.deltavista.com/dspone/services/OrderCheckService</parameter>
+        <parameter key="astina_solvency.provider.deltavista.class">Astina\Bundle\SolvencyBundle\Provider\DeltaVista\Provider</parameter>
+        <parameter key="astina_solvency.provider.deltavista.wsdl_url" />
+        <parameter key="astina_solvency.provider.deltavista.user" />
+        <parameter key="astina_solvency.provider.deltavista.password" />
+        <parameter key="astina_solvency.provider.deltavista.correlation_id">CHE</parameter>
+        <parameter key="astina_solvency.provider.deltavista.endpoint_url">https://dspone.deltavista.com/dspone/services/OrderCheckService</parameter>
     </parameters>
 
     <services>
-        <service id="astina_solvency.provider" class="%astina_solvency.provider.class%">
-            <argument>%astina_solvency.provider.wsdl_url%</argument>
-            <argument>%astina_solvency.provider.user%</argument>
-            <argument>%astina_solvency.provider.password%</argument>
-            <argument>%astina_solvency.provider.correlation_id%</argument>
-            <argument>%astina_solvency.provider.endpoint_url%</argument>
+        <service id="astina_solvency.provider.deltavista" class="%astina_solvency.provider.deltavista.class%">
+            <argument>%astina_solvency.provider.deltavista.wsdl_url%</argument>
+            <argument>%astina_solvency.provider.deltavista.user%</argument>
+            <argument>%astina_solvency.provider.deltavista.password%</argument>
+            <argument>%astina_solvency.provider.deltavista.correlation_id%</argument>
+            <argument>%astina_solvency.provider.deltavista.endpoint_url%</argument>
             <argument type="service" id="logger" />
         </service>
     </services>

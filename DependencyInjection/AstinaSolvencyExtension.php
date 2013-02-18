@@ -25,18 +25,28 @@ class AstinaSolvencyExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        if (isset($config['deltavista'])) {
+        $provider = $config['provider'];
+        if (isset($provider['deltavista'])) {
+
             $loader->load('provider/deltavista.xml');
             foreach (array('wsdl_url', 'user', 'password', 'correlation_id', 'endpoint_url') as $param) {
-                if (isset($config['deltavista'][$param])) {
-                    $container->setParameter('astina_solvency.provider.' . $param, $config['deltavista'][$param]);
+                if (isset($provider['deltavista'][$param])) {
+                    $container->setParameter('astina_solvency.provider.deltavista.' . $param, $provider['deltavista'][$param]);
                 }
             }
-        } elseif (isset($config['mock'])) {
+
+            $definition = $container->getDefinition('astina_solvency.provider');
+            $definition->replaceArgument(0, $container->getDefinition('astina_solvency.provider.deltavista'));
+
+        } elseif (isset($provider['mock'])) {
+
             $loader->load('provider/mock.xml');
-            if (isset($config['mock']['status'])) {
-                $container->setParameter('astina_solvency.provider.status', $config['mock']['status']);
+            if (isset($provider['mock']['status'])) {
+                $container->setParameter('astina_solvency.provider.mock.status', $provider['mock']['status']);
             }
+
+            $definition = $container->getDefinition('astina_solvency.provider');
+            $definition->replaceArgument(0, $container->getDefinition('astina_solvency.provider.mock'));
         }
     }
 }

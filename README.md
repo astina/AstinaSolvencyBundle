@@ -39,9 +39,24 @@ Add the WSDL url and DeltaVista credentials to your config.yml:
 # app/config.yml
 
 astina_solvency:
-    deltavista:
-        wsdl_url: http://example.org/path/to.wsdl
-        user: user
-        password: 123
-        endpoint_url: ~ # only needs to be set if another then the default one should be used (e.g. for testing)
+    provider:
+        deltavista:
+            wsdl_url: http://example.org/path/to.wsdl
+            user: user
+            password: 123
+            endpoint_url: ~ # only needs to be set if another then the default one should be used (e.g. for testing)
+```
+
+## Caching
+
+Per default, all requests are cached as the risk check provider usually charges per request. Because of that we don't use the Symfony cache dir but a separate one.
+You can set the cache lifetime and dir in the config:
+
+```yaml
+# app/config.yml
+
+astina_solvency:
+    cache:
+        cache_dir: /my/cache/dir
+        lifetime: ~ # null means "forever"
 ```
