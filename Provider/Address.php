@@ -84,7 +84,7 @@ class Address implements AddressInterface
     }
 
     /**
-     * @param \Astina\Bundle\ShopBundle\Model\Address $shopAddress
+     * @param \Astina\Bundle\ShopBundle\Model\OrderAddress $shopAddress
      * @return \Astina\Bundle\SolvencyBundle\Provider\Address
      */
     public static function createFromShopAddress($shopAddress)
