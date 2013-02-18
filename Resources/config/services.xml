@@ -4,17 +4,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="astina_solvency.example.class">Astina\Bundle\SolvencyBundle\Example</parameter>
+        <parameter key="astina_solvency.provider.class">Astina\Bundle\SolvencyBundle\Provider\CacheProvider</parameter>
+        <parameter key="astina_solvency.cache.cache_dir">%kernel.root_dir%/data/solvency-cache</parameter>
+        <parameter key="astina_solvency.cache.lifetime" />
     </parameters>
 
     <services>
-        <service id="astina_solvency.example" class="%astina_solvency.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="astina_solvency.provider" class="%astina_solvency.provider.class%">
+            <argument /> <!-- real provider is injected here -->
+            <argument>%astina_solvency.cache.cache_dir%</argument>
+            <argument>%astina_solvency.cache.lifetime%</argument>
         </service>
     </services>
-    -->
+
 </container>
