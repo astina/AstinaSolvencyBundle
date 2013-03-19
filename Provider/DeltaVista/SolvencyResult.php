@@ -10,7 +10,7 @@ class SolvencyResult extends BaseResult
     {
         $status = self::STATUS_UNKNOWN;
 
-        if ($response->returnCode != '0') {
+        if (!$response->myDecision) {
             $status = self::STATUS_BAD;
         } else {
             switch ($response->myDecision->decision) {
