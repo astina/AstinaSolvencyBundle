@@ -1,10 +1,20 @@
 {
-	"name": "astina/solvency-bundle",
-	"type": "symfony-bundle",
-	"autoload": {
-		"psr-0": {
-			"Astina\\Bundle\\SolvencyBundle": ""
-		}
-	},
-	"target-dir": "Astina/Bundle/SolvencyBundle"
+    "name": "astina/solvency-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony2 bundle integrating solvency check providers",
+    "keywords": ["astina", "solvency", "deltavista"],
+    "homepage": "http://astina.ch",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Astina",
+            "homepage": "https://github.com/astina/AstinaPaymentBundle/contributors"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Astina\\Bundle\\SolvencyBundle": ""
+        }
+    },
+    "target-dir": "Astina/Bundle/SolvencyBundle"
 }
