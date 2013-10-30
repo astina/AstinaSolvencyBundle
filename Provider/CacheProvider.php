@@ -20,8 +20,8 @@ class CacheProvider implements ProviderInterface
         $this->cachedDir = $cacheDir;
         $this->lifetime = $lifetime;
 
-        if (!is_writable($this->cachedDir)) {
-            throw new \Exception('Cache dir is not writable');
+        if (!is_writable($this->cachedDir) && !mkdir($this->cachedDir, 0775, true)) {
+            throw new \Exception('Cache dir ' . $this->cachedDir . ' is not writable');
         }
     }
 
