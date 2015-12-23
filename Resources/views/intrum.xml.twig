@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="http://site.intrum.ch/schema/CreditDecisionRequest142.xsd" ClientId="{{ client_id }}"
+Version="1.00" RequestId="{{ request_id }}" Email="{{ client_email }}" UserID="{{ user_id }}"
+Password="{{ password }}">
+    <Customer Reference="{{ address.emailAddress }}">
+        <Person>
+            <LastName>{{ address.lastname }}</LastName>
+            <FirstName>{{ address.firstname }}</FirstName>
+            <Gender>{{ (address.title == 'Herr') ? '1' : '2' }}</Gender>
+            <CurrentAddress>
+                <FirstLine>{{ address.street | street_name}}</FirstLine>
+                <HouseNumber>{{ address.street | street_number }}</HouseNumber>
+                <CountryCode>{{ address.country | country_convert }}</CountryCode>
+                <PostCode>{{ address.zipCode }}</PostCode>
+                <Town>{{ address.city }}</Town>
+            </CurrentAddress>
+            <CommunicationNumbers>
+                <TelephonePrivate>{{ address.phoneNumber }}</TelephonePrivate>
+                <Email>{{ address.emailAddress }}</Email>
+            </CommunicationNumbers>
+            <ExtraInfo>
+                <Name>ORDERCLOSED</Name>
+                <Value>{{ order_closed }}</Value>
+            </ExtraInfo>
+            <ExtraInfo>
+                <Name>ORDERAMOUNT</Name>
+                <Value>{{ order.totalPrice / 100 }}</Value>
+            </ExtraInfo>
+            <ExtraInfo>
+                <Name>ORDERCURRENCY</Name>
+                <Value>{{ order.currency }}</Value>
+            </ExtraInfo>
+        </Person>
+    </Customer>
+</Request>

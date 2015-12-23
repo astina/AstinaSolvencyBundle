@@ -8,6 +8,7 @@
         <parameter key="astina_solvency.provider.class">Astina\Bundle\SolvencyBundle\Provider\CacheProvider</parameter>
         <parameter key="astina_solvency.cache.cache_dir">%kernel.root_dir%/data/solvency-cache</parameter>
         <parameter key="astina_solvency.cache.lifetime" />
+        <parameter key="astina_solvency.twig.extensions.class">Astina\Bundle\SolvencyBundle\Twig\SolvencyExtensions</parameter>
     </parameters>
 
     <services>
@@ -16,6 +17,11 @@
             <argument>%astina_solvency.cache.cache_dir%</argument>
             <argument>%astina_solvency.cache.lifetime%</argument>
         </service>
+
+        <service id="astina_solvency.twig.extensions" class="%astina_solvency.twig.extensions.class%">
+            <tag name="twig.extension"/>
+        </service>
+
     </services>
 
 </container>

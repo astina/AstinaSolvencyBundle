@@ -47,6 +47,18 @@ class AstinaSolvencyExtension extends Extension
 
             $definition = $container->getDefinition('astina_solvency.provider');
             $definition->replaceArgument(0, $container->getDefinition('astina_solvency.provider.mock'));
+        } elseif (isset($provider['intrum'])) {
+
+            $loader->load('provider/intrum.xml');
+            foreach (array('user_id', 'client_id', 'client_email', 'password', 'endpoint_url') as $param) {
+                if (isset($provider['intrum'][$param])) {
+                    $container->setParameter('astina_solvency.provider.intrum.' . $param, $provider['intrum'][$param]);
+                }
+            }
+
+            $definition = $container->getDefinition('astina_solvency.provider');
+            $definition->replaceArgument(0, $container->getDefinition('astina_solvency.provider.intrum'));
+
         }
     }
 }
