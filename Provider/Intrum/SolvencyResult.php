@@ -6,27 +6,21 @@ use Astina\Bundle\SolvencyBundle\Solvency\SolvencyResult as BaseResult;
 
 class SolvencyResult extends BaseResult
 {
-    function __construct(\stdClass $response)
+    function __construct(\SimpleXMLElement $response)
     {
         $status = self::STATUS_UNKNOWN;
 
-        if (!$response->myDecision) {
+        if (!isset($response->Customer[0]->RequestStatus) || !$response->Customer[0]->RequestStatus) {
             $status = self::STATUS_BAD;
         } else {
-            switch ($response->myDecision->decision) {
-                case 'RED' :
-                    $status = self::STATUS_BAD;
-                    break;
-                case 'YELLOW' :
-                    $status = self::STATUS_MEDIUM;
-                    break;
-                case 'GREEN' :
+            switch (intval($response->Customer[0]->RequestStatus)) {
+                case 2 :
                     $status = self::STATUS_GOOD;
                     break;
+                default :
+                    $status = self::STATUS_BAD;
             }
         }
-
         parent::__construct($status);
     }
-
 }

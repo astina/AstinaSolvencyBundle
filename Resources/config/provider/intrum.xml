@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="astina_solvency.provider.intrum.class">Astina\Bundle\SolvencyBundle\Provider\Intrum\Provider</parameter>
+        <parameter key="astina_solvency.provider.intrum.client_id" />
+        <parameter key="astina_solvency.provider.intrum.client_email" />
+        <parameter key="astina_solvency.provider.intrum.user_id" />
+        <parameter key="astina_solvency.provider.intrum.email" />
+        <parameter key="astina_solvency.provider.intrum.password" />
+        <parameter key="astina_solvency.provider.intrum.endpoint_url">https://secure.intrum.ch/services/creditCheckDACH_01_41/response.cfm</parameter>
+    </parameters>
+
+    <services>
+        <service id="astina_solvency.provider.intrum" class="%astina_solvency.provider.intrum.class%">
+            <argument>%astina_solvency.provider.intrum.client_id%</argument>
+            <argument>%astina_solvency.provider.intrum.client_email%</argument>
+            <argument>%astina_solvency.provider.intrum.user_id%</argument>
+            <argument>%astina_solvency.provider.intrum.email%</argument>
+            <argument>%astina_solvency.provider.intrum.password%</argument>
+            <argument>%astina_solvency.provider.intrum.endpoint_url%</argument>
+            <argument type="service" id="templating" />
+            <argument type="service" id="logger" />
+        </service>
+    </services>
+</container>
