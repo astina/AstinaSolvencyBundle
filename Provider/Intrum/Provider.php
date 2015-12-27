@@ -47,7 +47,7 @@ class Provider implements ProviderInterface
      */
     public function checkAddress(AddressInterface $address, array $options = null)
     {
-        $this->logger->info('Checking address solvency', array('address' => (string) $address));
+        $this->logger->info('Checking address solvency with provider Intrum', array('address' => (string) $address));
 
         if(!isset($options['order']) || !$options['order'] instanceof Order) {
             throw new SolvencyException('Astina\Bundle\ShopBundle\Model\Order needs to be passsed in the options');
@@ -86,10 +86,14 @@ class Provider implements ProviderInterface
             throw new SolvencyException('Failed to get Intrum response', null, $e);
         }
 
+        $responseContent = "";
         try{
-            $responseXml = new \SimpleXMLElement($res->getBody()->getContents());
+            $responseContent = $res->getBody()->getContents();
+            $responseXml = new \SimpleXMLElement($responseContent);
         } catch(\Exception $e) {
             throw new SolvencyException('Could not parse Intrum response xml', null, $e);
+        } finally {
+            $this->logger->info('Received Intrum response', array('response' => (string) $responseContent));
         }
         return new SolvencyResult($responseXml);
     }
